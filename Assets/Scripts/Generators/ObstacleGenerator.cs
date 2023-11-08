@@ -52,26 +52,6 @@ public class ObstacleGenerator : MonoBehaviour
         if (randomNumber >= 15) obstacleType = Random.Range(0, 2);
         else obstacleType = Random.Range(2, 5);
         GameObject new_obstacle = Instantiate(ObstaclesTypes[obstacleType], pos, Quaternion.Euler(0,180,0), transform);
-        switch (obstacleType)
-        {
-            case 0:
-                tag = "Enemy_car";
-                break;
-            case 1:
-                tag = "Enemy_car";
-                break;
-            case 2 :
-                tag = "HealthUp";
-                break;
-            case 3:
-                tag = "Invincibility";
-                break;
-            case 4:
-                tag = "RotateUpgrade";
-                break;
-        }
-
-        new_obstacle.tag = tag;
         _obstacles.Add(new_obstacle);
     }
 

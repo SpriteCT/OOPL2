@@ -8,13 +8,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Canvas StartMenu;
-    public TextMeshProUGUI HealthBar;
-    public TextMeshProUGUI ScoreBar;
-    public TextMeshProUGUI HighScoreBar;
-    public Canvas InGameBar;
-    public int Score;
-    public bool IsGameStarted;
+    [SerializeField] public Canvas StartMenu;
+    [SerializeField] public TextMeshProUGUI HealthBar;
+    [SerializeField] public TextMeshProUGUI ScoreBar;
+    [SerializeField] public TextMeshProUGUI HighScoreBar;
+    [SerializeField] public Canvas InGameBar;
+    [SerializeField] public int Score;
+    [SerializeField] public GameObject HealthUpUpgrade;
+    [SerializeField] public GameObject InvincibilityUpgrade;
+    [SerializeField] public GameObject RotateUpgrade;
+    
+    [HideInInspector] public bool IsGameStarted;
     
     private float _gameSpeed;
     private int _highscore;
@@ -69,5 +73,25 @@ public class GameManager : MonoBehaviour
     public void IncreaseSpeed()
     {
         _gameSpeed += 0.01f;
+    }
+
+    public IEnumerator UpgradeIcon(string upgradeType)
+    {
+        GameObject obj;
+        if (upgradeType == "RotateUpgrade")
+        {
+            obj = RotateUpgrade;
+        }
+        else if(upgradeType == "HealthUp")
+        {
+            obj = HealthUpUpgrade;
+        }
+        else
+        {
+            obj = InvincibilityUpgrade;
+        }
+        obj.SetActive(true);
+        yield return new WaitForSecondsRealtime(5f);
+        obj.SetActive(false);
     }
 }

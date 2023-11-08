@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class PlayerManagement : MonoBehaviour
 {
     public int MaxHealth = 3;
-    public int Health;
+    [HideInInspector] public int Health;
     public Animator PlayerAnim;
     public MeshRenderer _mr;
     
@@ -49,16 +49,19 @@ public class PlayerManagement : MonoBehaviour
         if (other.gameObject.CompareTag("HealthUp"))
         {
             Health = Health + 1 > MaxHealth ? MaxHealth : Health + 1;
+            StartCoroutine(_gm.UpgradeIcon("HealthUp"));
         }
 
         if (other.gameObject.CompareTag("Invincibility"))
         {
             StartCoroutine(Invincibility());
+            StartCoroutine(_gm.UpgradeIcon("Invincibility"));
         }
 
         if (other.gameObject.CompareTag("RotateUpgrade"))
         {
             StartCoroutine(RotateUpgrade());
+            StartCoroutine(_gm.UpgradeIcon("RotateUpgrade"));
         }
         _og.DeleteObstacle(other.gameObject);
     }
@@ -67,7 +70,7 @@ public class PlayerManagement : MonoBehaviour
     {
         _mr.material.color = Color.green;
         _isInvinc = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSecondsRealtime(5f);
         _isInvinc = false;
         _mr.material.color = _startColor;
     }
@@ -75,7 +78,7 @@ public class PlayerManagement : MonoBehaviour
     {
         _mr.material.color = Color.blue;
         _pm.Speed = _pm.StartSpeed + 3;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSecondsRealtime(5f);
         _pm.Speed = _pm.StartSpeed;
         _mr.material.color = _startColor;
     }

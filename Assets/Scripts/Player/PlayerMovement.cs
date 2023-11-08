@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float StartSpeed;
-    public float Speed;
+    [HideInInspector] public float Speed;
     
     private GameManager _gm;
     private void Start()
